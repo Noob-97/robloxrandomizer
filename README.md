@@ -2,7 +2,7 @@
 A random roblox game searcher with an included GUI made with Tkinter in Python (gui only available for challenge mode).
 
 ### How to install
-⚠️ WARNING: This is a python program. Having a recent version of python is required for the script to run. You can download Python here: https://www.python.org/downloads/
+**⚠️ WARNING:** This is a python program. Having a recent version of python is required for the script to run. You can download Python here: https://www.python.org/downloads/
 
 If you wish to use the Challenge Mode GUI version (refer to "Challenge Mode" below), during the installation please check "tcl/tk and IDLE" in "Optional Features" for installing tkinter. You can do this even if you already have python installed, if you still have this installer file and go to "Modify".
 
@@ -15,7 +15,7 @@ Once having downloaded the repo by zip install [https://github.com/Noob-97/roblo
 
 When robloxrandomizer.py or robloxrandomizerplus.py are ran, a console window will appear with information about all the searched and discarded IDs. The scripts include a criteria for game-finding that has been implemented to avoid executing a non-accesible game or people's default places (as they appear very often), but you can of course change them according to your needs.
 
-Retrieving games' essential information requires an API key for HTTP requests. Inside the scripts mine is used, but it's more recommended to make your own. You can create an API key on: https://create.roblox.com/dashboard/credentials?activeTab=ApiKeysTab
+**➡️ IMPORTANT:** Retrieving games' essential information requires an API key for HTTP requests. Before executing any of the scripts you'll need to add your own key to the "api_key" string variable inside. You can create an API key on: https://create.roblox.com/dashboard/credentials?activeTab=ApiKeysTab
 
 The difference between robloxrandomizer.py and robloxrandomizerplus.py are their game-finding method, the basic version only searching with pure random number IDs, and the plus version guaranteeing a selection of games with more quality and popularity being based of random people's badges.
 
