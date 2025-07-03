@@ -29,6 +29,10 @@ playtime = 0
 playtimeConstant = 1
 playtimes30 = False
 
+if "YOUR_API_KEY" in api_key or "" in api_key:
+    print('⚠️ WARNING: variable "api_key" has not been configured.\nRetrieving games essential information requires an API key for HTTP requests. Before executing any of the scripts you will need to add your own key to the "api_key" string variable inside. You can create an API key on: https://create.roblox.com/dashboard/credentials?activeTab=ApiKeysTab')
+
+
 def GetIDwUser():
     userID = []
     for i in range(0, random.randint(3, 12)):
