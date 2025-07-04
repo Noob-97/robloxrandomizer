@@ -8,6 +8,8 @@ from PIL import ImageTk, Image
 import requests
 import io
 import sys
+import os
+import atexit
 
 window = tk.Tk()
 window.title("robloxrandomizer")
@@ -15,6 +17,7 @@ window.attributes('-transparentcolor', "#010101")
 window.configure(background="#010101")
 window.overrideredirect(True)
 window.attributes("-topmost", 1)
+window.attributes("-alpha", 0.75)
 windll.shcore.SetProcessDpiAwareness(1)
 window.tk.call('tk', 'scaling', 3.0)
 
@@ -28,6 +31,10 @@ startIMG = tk.PhotoImage(file = "robloxrandomizerimgs/start.png")
 timerIMG = tk.PhotoImage(file = "robloxrandomizerimgs/timer.png")
 welcomeIMG = tk.PhotoImage(file = "robloxrandomizerimgs/welcome.png")
 winlosecountIMG = tk.PhotoImage(file = "robloxrandomizerimgs/winlosecount.png")
+goalreachedIMG = tk.PhotoImage(file = "robloxrandomizerimgs/goalreached.png")
+startnewIMG = tk.PhotoImage(file = "robloxrandomizerimgs/startnew.png")
+continueIMG = tk.PhotoImage(file = "robloxrandomizerimgs/continue.png")
+
 
 global timerredirect, timeflag, wins, finishedtime, loses, gamecount
 timeflag = False
@@ -40,6 +47,10 @@ resultstatus = "N/A"
 gamecount = 0
 wins = 0
 loses = 0
+
+# CHALLENGE-MODE OPTIONS
+goal = 1
+saveSession = False
 
 def update_json():
     global playtime, currentgame, favs, playing, gameimgurl
@@ -90,14 +101,24 @@ def get_game():
 
 adjust_screen()
 update_json()
-reset_games()
 
 def init():
     global startbutton, separator, welcome
-    startbutton = tk.Button(master=window, image=startIMG, borderwidth=0, bg="#010101", activebackground="#010101", command=search)
+    startbutton = tk.Button(master=window, image=startIMG, borderwidth=0, bg="#010101", activebackground="#010101", command=start)
     separator = tk.Label(master=window, image=separatorIMG, background="#010101", width=364)
     welcome = tk.Label(master=window, image=welcomeIMG, background="#010101")
     startbutton.pack(anchor="ne")
+    separator.pack(pady=10)
+    welcome.pack(anchor="ne")
+
+def init_alt():
+    global startbutton, separator, welcome
+    startbutton = tk.Button(master=window, image=startnewIMG, borderwidth=0, bg="#010101", activebackground="#010101", command=search)
+    continuebutton = tk.Button(master=window, image=continueIMG, borderwidth=0, bg="#010101", activebackground="#010101", command=continue_)
+    separator = tk.Label(master=window, image=separatorIMG, background="#010101", width=364)
+    welcome = tk.Label(master=window, image=welcomeIMG, background="#010101")
+    startbutton.pack(anchor="ne")
+    continuebutton.pack(anchor="ne")
     separator.pack(pady=10)
     welcome.pack(anchor="ne")
 
@@ -213,6 +234,45 @@ def gamedisplay():
     timeflag = False
     timer_loop(int(playtime * 60))
     
+def goalcomplete():
+    startbutton.pack_forget()
+    separator.pack_forget()
+    welcome.pack_forget()
+
+    global timet, searchgame, winlose, gamenumber, wincount, losecount
+    global wins, loses, resultstatus, finishedtime, gamecount
+
+
+    completedbutton.pack_forget()
+    skipbutton.pack_forget()
+    filler.pack_forget()
+    timet.pack_forget()
+    winlose.place_forget()
+
+
+    timetext = f"    {finishedtime}"
+    timet = tk.Label(master=window, text=timetext, image=timerIMG, compound="center", bg="#010101", activebackground="#010101", font="Outfit 25 bold", fg="#808080")                             
+    searchgame = tk.Label(master=window, image=goalreachedIMG, bg="#010101")
+    winlose = tk.Label(master=window, image=winlosecountIMG, bg="#010101")
+    gametext = f"#{gamecount}"
+    gamenumber = tk.Label(master=window, image=gamenumberIMG, bg="#010101", compound="center", text=gametext, font="Outfit 12 underline", fg="#7D7D7D")
+    wins = wins + 1
+    wincount = tk.Label(master=window, bg="#00F875", text=wins, fg="#009D4A", font="Outfit 12", borderwidth=0)
+    losecount = tk.Label(master=window, bg="#FF0057", text=loses, fg="#A10037", font="Outfit 12", borderwidth=0)
+    timet.pack(anchor="ne")
+    separator.pack(pady=10)
+    searchgame.place(x=118, y=178)
+    gamenumber.pack(anchor="nw")
+    winlose.pack(anchor="nw")
+    wincount.place(x=92, y=302, anchor="e")
+    losecount.place(x=10, y=326)
+
+    window.update()
+
+    if os.path.exists("robloxrandomizerSession.json"):
+        os.remove("robloxrandomizerSession.json")
+    atexit.unregister(logSession)
+
 def timer_loop(sec):
     currenttime = sec
 
@@ -237,6 +297,8 @@ def timer_loop(sec):
                 search(True)
             case 4:
                 search(-1)
+            case 5:
+                goalcomplete()
         return
         
     window.after(1000, timer_loop, sec - 1)
@@ -244,9 +306,11 @@ def timer_loop(sec):
 def complete():
     global timerredirect, timeflag
  
-    timerredirect = 3
+    if wins == goal - 1:
+        timerredirect = 5
+    else:
+        timerredirect = 3
     timeflag = True
-    print("gvfdbnen")
 
 def skip():
     global timerredirect, timeflag
@@ -254,5 +318,32 @@ def skip():
     timerredirect = 4
     timeflag = True
 
-init()
+def start():
+    if os.path.exists("robloxrandomizerSession.json"):
+        os.remove("robloxrandomizerSession.json")
+
+    reset_games()
+    atexit.register(logSession)
+    search()
+
+def continue_():
+    setSession()
+    atexit.register(logSession)
+    search()
+
+def logSession():
+    info = {"wins" : wins, "loses" : loses, "games" : gamecount}
+    json.dump(info, open("robloxrandomizer.json", "w"))
+
+def setSession():
+    log = json.load(open("robloxrandomizer.json", "r"))
+    log["wins"] = wins
+    log["loses"] = loses
+    log["games"] = gamecount
+
+if os.path.exists("robloxrandomizerSession.json"):
+    init_alt()
+else:
+    init()
+
 window.mainloop()
