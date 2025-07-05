@@ -54,7 +54,7 @@ loses = 0
 
 # CHALLENGE-MODE OPTIONS
 goal = -1
-saveSession = False
+saveSession = True
 
 def update_json():
     global playtime, currentgame, favs, playing, gameimgurl
@@ -117,7 +117,7 @@ def init():
 
 def init_alt():
     global startbutton, separator, welcome, continuebutton
-    startbutton = tk.Button(master=window, image=startnewIMG, borderwidth=0, bg="#010101", activebackground="#010101", command=search)
+    startbutton = tk.Button(master=window, image=startnewIMG, borderwidth=0, bg="#010101", activebackground="#010101", command=start)
     continuebutton = tk.Button(master=window, image=continueIMG, borderwidth=0, bg="#010101", activebackground="#010101", command=continue_)
     separator = tk.Label(master=window, image=separatorIMG, background="#010101", width=364)
     welcome = tk.Label(master=window, image=welcomeIMG, background="#010101")
@@ -339,7 +339,8 @@ def start():
         arg = "continue"
 
     reset_games()
-    atexit.register(logSession)
+    if saveSession:
+        atexit.register(logSession)
     search(arg)
 
 def continue_():
