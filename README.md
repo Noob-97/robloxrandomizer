@@ -11,7 +11,7 @@ These scripts also uses certain modules like requests and Pillow. If you don't h
 pip install requests pillow
 ```
 ### How to USE
-Once having downloaded the repo by zip install [https://github.com/Noob-97/robloxrandomizer/archive/refs/heads/main.zip] or by other method, you can run robloxrandomizer.py, robloxrandomizerplus.py or \__main__\.py
+Once having downloaded the repo by zip install [https://github.com/Noob-97/robloxrandomizer/archive/refs/heads/main.zip] or by other method, you can run robloxrandomizer.py, robloxrandomizerplus.py or \__main__\.pyw
 
 When robloxrandomizer.py or robloxrandomizerplus.py are ran, a console window will appear with information about all the searched and discarded IDs. The scripts include a criteria for game-finding that has been implemented to avoid executing a non-accesible game or people's default places (as they appear very often), but you can of course change them according to your needs.
 
@@ -33,11 +33,13 @@ If you prefer to just search a bunch of random games to play and have fun while 
 | minUsers = int                       | Optional. Only available in robloxrandomizerplus.py. Discards games that don't meet the minimum visits threshold that serve as an extra "quality" measure. |
 | skipAlreadyPlayedGames = bool       | Optional. Only available in robloxrandomizerplus.py. Skips games that have already been selected once before. This list is on robloxrandomizer.json. To reset the game list, it must be done by manually editing the json file and deleting all the list's elements. This is handled automatically when ran on challenge mode with \__main__\.py |
 | playtimes30 = bool       | Only for Challenge Mode. Found on robloxrandomizerplus.py. Sets the playtime timers of all games to 30 minutes. Is best to activate this option if you're feeling like the playtime times are getting too unmanageable. |
+| goal = int       | Only for Challenge Mode. Found on \__main__\.pyw. Stops searching for games after a certain number of games completed. If its set to -1, this setting will be ignored. |
+| saveSession = bool       | Only for Challenge Mode. Found on \__main__\.pyw. Saves your session progress, giving you the option to continue with the previous sessions's wins, loses and games played number counters. |
 
 ### Challenge Mode
 How many games are you able to beat within their expected playtime? Are you truly a Roblox expert?
 
-To start Challenge Mode, open \__main__\.py and a GUI window will appear on the top-right side of your screen. Click "start" to start searching games. Challenge Mode uses robloxrandomizerplus.py by default.
+To start Challenge Mode, open \__main__\.py and a GUI window will appear on the top-right side of your screen. Click "start" to start searching games. Challenge Mode uses robloxrandomizerplus.py by default. __➡️➡️ TO EXIT CHALLENGE-MODE, CLICK OVER THE WINDOW AND PRESS ALT+F4.__
 
 The Challenge consists on beating (or considered completed) the most amount of games under a certain time calculated with the Players Playing and Game Favourited stats of the game, representing its average playtime (as you can't obtain a game's avearge playtime directly). 
 
