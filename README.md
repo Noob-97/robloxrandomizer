@@ -36,6 +36,8 @@ If you prefer to just search a bunch of random games to play and have fun while 
 | goal = int       | Only for Challenge Mode. Found on \__main__\.pyw. Stops searching for games after a certain number of games completed. If its set to -1, this setting will be ignored. |
 | saveSession = bool       | Only for Challenge Mode. Found on \__main__\.pyw. Saves your session progress, giving you the option to continue with the previous sessions's wins, loses and games played number counters. |
 
+You can also set the program's language by changing the variable "lang" in \__main__\.pyw. The only available languages at the moment are "EN" (english) and "ES" (spanish).
+
 ### Challenge Mode
 How many games are you able to beat within their expected playtime? Are you truly a Roblox expert?
 
