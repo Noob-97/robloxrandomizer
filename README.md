@@ -39,7 +39,9 @@ If you prefer to just search a bunch of random games to play and have fun while 
 ### Challenge Mode
 How many games are you able to beat within their expected playtime? Are you truly a Roblox expert?
 
-To start Challenge Mode, open \__main__\.py and a GUI window will appear on the top-right side of your screen. Click "start" to start searching games. Challenge Mode uses robloxrandomizerplus.py by default. __➡️➡️ TO EXIT CHALLENGE-MODE, CLICK OVER THE WINDOW AND PRESS ALT+F4.__
+To start Challenge Mode, open \__main__\.py and a GUI window will appear on the top-right side of your screen. Click "start" to start searching games. Challenge Mode uses robloxrandomizerplus.py by default. 
+
+__➡️➡️ TO EXIT CHALLENGE-MODE, CLICK OVER THE WINDOW AND PRESS ALT+F4. While searching for games (running robloxrandomizerplus.py), the window will freeze. If a "program not responding" popup appears, please select "Wait until program responds" and wait until robloxrandomizerplus.py returns a game.__
 
 The Challenge consists on beating (or considered completed) the most amount of games under a certain time calculated with the Players Playing and Game Favourited stats of the game, representing its average playtime (as you can't obtain a game's avearge playtime directly). 
 
